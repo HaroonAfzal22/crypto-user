@@ -149,10 +149,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     snapshot.data!.docs.map((DocumentSnapshot document) {
                                       Map<String, dynamic> data =
                                       document.data() as Map<String, dynamic>;
+                                      final urlList = [];
+                                      urlList.add(data['BannerImage']);
+                                      
+                                      final List<Widget> imageSliders = urlList.map((e) => Container(child:  ClipRRect(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                            data['BannerImage'] ?? b2 ,
+                                            fit: BoxFit.cover
+                                        ),
+                                      ),),).toList();
 
                                       return   Column(children: [
 
-                                        Text(data['BannerName'] ??'Banner title',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                                        Text(data['BannerName'] ??'Banner title',style: TextStyle(fontSize: 20,fontWeight: FontWeight.w900),),
                                         SizedBox(height: 10,),
                                         Container(
 
@@ -167,7 +177,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.circular(8.0),
                                               child: Image.network(
-                                                  data['BannerImage'] ?? b2,
+                                                  data['BannerImage'] ?? b2 ,
                                                   fit: BoxFit.cover
                                               ),
                                             )),
@@ -188,46 +198,54 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             stream: _fireStore.collection('Crypto').snapshots(),
                             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
                               if(snapshot.hasData){
-                                return Container(
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                margin: EdgeInsets.symmetric(horizontal: 22,vertical: 10),
+                                        child:Text('Our currency rate',style: boldTextStyle(size: 18),), ),
+                                    Container(
 
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  height: 110,
-                                  child: ListView(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    children:
-                                    snapshot.data!.docs.map((DocumentSnapshot document) {
-                                      Map<String, dynamic> data =
-                                      document.data() as Map<String, dynamic>;
+                                      padding: EdgeInsets.symmetric(horizontal: 20),
+                                      height: 90,
+                                      child: ListView(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        children:
+                                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                                          Map<String, dynamic> data =
+                                          document.data() as Map<String, dynamic>;
 
-                                      return   Column(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
+                                          return   Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: [
 
 
-                                        Container(
-                                            decoration:BoxDecoration(
-                                                borderRadius: BorderRadius.circular(100),
-                                                border: Border.all(color:themePrimaryColor,width: 2)
-                                            ),
-                                            margin: EdgeInsets.symmetric(horizontal: 8),
+                                            Container(
+                                                decoration:BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(100),
+                                                    border: Border.all(color:themePrimaryColor,width: 2)
+                                                ),
+                                                margin: EdgeInsets.symmetric(horizontal: 8),
 
-                                            width: 80,
-                                            height: 80,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(100.0),
-                                              child: Image.network(
-                                                  data['cryptoImage'] ?? b2,
-                                                  fit: BoxFit.cover
-                                              ),
-                                            )),
-                                        Text( data['cryptoName'] ??'Crypto name',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
-                                        Text(data['cryptoPrice'] ??'Crypto Price',style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
-                                      ],);
-                                      // ImageBannerWidget(ImageUrl:data['ImageUrl'],)
+                                                width: 40,
+                                                height: 40,
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(100.0),
+                                                  child: Image.network(
+                                                      data['cryptoImage'] ?? b2,
+                                                      fit: BoxFit.cover
+                                                  ),
+                                                )),
+                                            Text( data['cryptoName'] ??'Crypto name',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                                            Text(data['cryptoPrice'] ??'Crypto Price',style: TextStyle(fontSize: 14,fontWeight: FontWeight.normal),),
+                                          ],);
+                                          // ImageBannerWidget(ImageUrl:data['ImageUrl'],)
 
-                                    }).toList(),
-                                  ),
+                                        }).toList(),
+                                      ),
+                                    ),
+                                  ],
                                 );
                               }
                               return Center(child: CircularProgressIndicator(color: Colors.deepOrange),);
