@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "148899521055",
+    "project_id": "crypto-admin-user-apps",
+    "storage_bucket": "crypto-admin-user-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148899521055:android:f1134f6c4b6f45e391eb2a",
+        "android_client_info": {
+          "package_name": "com.iqonic.cryptocoin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148899521055-bjrab7oaurjnl80ln64ggtav30r2llhk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArVNC4rb3r_r9yM_-OPb80Zz_EXs-2QqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148899521055-bjrab7oaurjnl80ln64ggtav30r2llhk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
